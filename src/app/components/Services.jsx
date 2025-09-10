@@ -2,45 +2,6 @@ import Image from "next/image";
 import React from "react";
 
 export default function Services() {
-  const data = [
-    {
-      _id: "635a0c0b64a6d231228942ae",
-      title: "Engine Oil Change",
-      img: "https://i.ibb.co/T2cpBd5/888.jpg",
-      price: "20.00",
-    },
-    {
-      _id: "635a0c0b64a6d231228942af",
-      title: "Battery Charge",
-      img: "https://i.ibb.co/ydCbDN3/5555.jpg",
-      price: "20.00",
-    },
-    {
-      _id: "635b591a1dafe382a9da8c96",
-      title: "Full car Repair",
-      img: "https://i.ibb.co/R6Z2nFM/55.jpg",
-      price: "200.00",
-    },
-    {
-      _id: "635b5afc1dafe382a9da8c98",
-      title: "Engine Repair",
-      img: "https://i.ibb.co/5MvmD2g/88.jpg",
-      price: "150.00",
-    },
-    {
-      _id: "635b5b691dafe382a9da8c99",
-      title: "Automatic Services",
-      img: "https://i.ibb.co/wh7t3N3/555.jpg",
-      price: "30.00",
-    },
-    {
-      _id: "635b5ba51dafe382a9da8c9a",
-      title: "Electrical System",
-      img: "https://i.ibb.co/KzCG8qr/8888.jpg",
-      price: "20.00",
-    },
-  ];
-
   return (
     <div className="w-11/12 mx-auto py-8">
       <h2 className="text-2xl font-bold mb-6 text-center">Our Services</h2>
