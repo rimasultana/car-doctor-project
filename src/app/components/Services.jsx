@@ -1,7 +1,10 @@
+import dbConnect from "@/lib/dbConnect";
 import Image from "next/image";
 import React from "react";
 
-export default function Services() {
+export default async function Services() {
+  const serviceCollection =await dbConnect("test_services");
+  const data = await serviceCollection.find({}).toArray();
   return (
     <div className="w-11/12 mx-auto py-8">
       <h2 className="text-2xl font-bold mb-6 text-center">Our Services</h2>
