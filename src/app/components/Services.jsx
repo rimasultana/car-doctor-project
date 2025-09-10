@@ -1,9 +1,12 @@
-import dbConnect from "@/lib/dbConnect";
+import dbConnect, { collectionNameObj } from "@/lib/dbConnect";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default async function Services() {
-  const serviceCollection =await dbConnect("test_services");
+  const serviceCollection = await dbConnect(
+    collectionNameObj.servicesCollection
+  );
   const data = await serviceCollection.find({}).toArray();
   return (
     <div className="w-11/12 mx-auto py-8">
@@ -30,7 +33,10 @@ export default async function Services() {
                 <p className="text-[#FF3811] font-semibold">
                   Price: ${item.price}
                 </p>
-                <button className="text-[#FF3811] hover:text-red-600 transition">
+                <Link
+                  href={`/services/${item._id}`}
+                  className="text-[#FF3811] hover:text-red-600 transition"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -46,7 +52,7 @@ export default async function Services() {
                       clipRule="evenodd"
                     />
                   </svg>
-                </button>
+                </Link>
               </div>
             </div>
           </div>

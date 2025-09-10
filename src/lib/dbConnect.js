@@ -1,8 +1,9 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-const uri = process.env.MONGODB_URL; 
+export const collectionNameObj = { servicesCollection: "test_services" };
 
 export default async function dbConnect(collectionName) {
+  const uri = process.env.MONGODB_URL;
   const client = new MongoClient(uri, {
     serverApi: {
       version: ServerApiVersion.v1,
@@ -12,6 +13,6 @@ export default async function dbConnect(collectionName) {
   });
 
   await client.connect();
-  const db = client.db(process.env.DB_NAME); 
-  return db.collection(collectionName); 
+  const db = client.db(process.env.DB_NAME);
+  return db.collection(collectionName);
 }
