@@ -5,20 +5,22 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+
 export default function SocialLogin() {
   const router = useRouter();
-//   const session = useSession();
+  const session = useSession();
 
-  const handleSocialLogin = (providerName) => {
-    signIn(providerName);
+  const handleSocialLogin = async (providerName) => {
+    console.log(providerName);
+    const res = await signIn(providerName, { redirect: false });
+    console.log(res);
   };
-
-//   useEffect(() => {
-//     if (session?.status == "authenticated") {
-//       router.push("/");
-//       toast("Successfully Logged IN");
-//     }
-//   }, [session?.status]);
+  useEffect(() => {
+    if (session?.status == "authenticated") {
+      router.push("/");
+      toast("Successfully Logged IN");
+    }
+  }, [session?.status]);
 
   return (
     <div className="flex justify-center gap-8">

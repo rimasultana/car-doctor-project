@@ -80,6 +80,15 @@ export default function NavBar() {
         <div className="navbar-end list-none space-x-4 text-[#FF3811]">
           {status == "authenticated" ? (
             <>
+              <li>
+                <Image
+                  className="rounded-full"
+                  src={session?.user?.image}
+                  width={30}
+                  height={30}
+                  alt={"user"}
+                />
+              </li>
               <li
                 onClick={handleLogOut}
                 className="border-b-2 border-[#FF3811] rounded-xl p-2 hover:border-green-700 hover:text-green-700"
@@ -89,9 +98,6 @@ export default function NavBar() {
             </>
           ) : (
             <>
-              <li className="border-b-2 border-[#FF3811] rounded-xl p-2">
-                <Link href={"/register"}>Register</Link>
-              </li>
               <li className="border-b-2 border-[#FF3811] rounded-xl p-2">
                 <Link href={"/login"}>Login</Link>
               </li>
