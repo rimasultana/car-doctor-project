@@ -4,11 +4,14 @@ import Link from "next/link";
 import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import SocialLogin from "@/app/login/components/SocialLogin";
+import { registerUser } from "@/app/actions/auth/registerUser";
 
 export default function RegisterForm() {
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    registerUser(data);
+  };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
