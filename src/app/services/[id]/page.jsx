@@ -1,20 +1,16 @@
-import dbConnect, { collectionNameObj } from "@/lib/dbConnect";
-import { ObjectId } from "mongodb";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default async function ServicesDetailsPage({ params }) {
-  const servicesCollection = await dbConnect(
-    collectionNameObj.servicesCollection
-  );
-  const data = await servicesCollection.findOne({
-    _id: new ObjectId(params.id),
+  const p = await params;
+  const res = await fetch(`http://localhost:3000/api/service/${p.id}`, {
+    cache: "no-store",
   });
+  const data = await res.json();
 
   return (
     <div className="w-full">
-      {/* Banner Section */}
       <section className="relative w-full">
         <Image
           src="/assets/images/checkout/checkout.png"
@@ -57,8 +53,8 @@ export default async function ServicesDetailsPage({ params }) {
 
         <div className="md:w-1/3 flex flex-col justify-start gap-4">
           {" "}
-          <button className="bg-[#FF3811] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#e63600] transition">
-            Check Out
+          <button className="bg-[#FF3811] text-white px-8 font-bold py-2 rounded-lg shadow-lg hover:bg-[#e63600] transition">
+            <Link href={`/checkout/${data._id}`}>CheckOut</Link>
           </button>
           <p className="text-xl font-semibold mt-2 ">Price: ${data.price}</p>
         </div>
