@@ -18,7 +18,7 @@ export default function NavBar() {
         <li>
           <Link href={"/blog"}>Blog</Link>
         </li>
-        <li>
+        <li> 
           <Link href={"/contact"}>Contact</Link>
         </li>
       </>
@@ -67,16 +67,14 @@ export default function NavBar() {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navMenu()}</ul>
         </div>
-        <div className="navbar-end">
-          <li>
+        <div className="navbar-end list-none space-x-4 text-[#FF3811]">
+          <li className="border-b-2 border-[#FF3811] rounded-xl p-2">
             <Link href={"/register"}>Register</Link>
           </li>
-          <li>
+          <li className="border-b-2 border-[#FF3811] rounded-xl p-2">
             <Link href={"/login"}>Login</Link>
           </li>
-          <a className="btn text-[#FF3811] border-2 border-[#FF3811]">
-            Appointment
-          </a>
+          <a className="btn border-2 border-[#FF3811]">Appointment</a>
         </div>
       </div>
     </div>

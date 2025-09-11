@@ -2,30 +2,34 @@
 
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
+import SocialLogin from "./SocialLogin";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import SocialLogin from "./SocialLogin";
 
 export default function LoginForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const router = useRouter();
 
   const onSubmit = async (data) => {
-    const res = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-    });
-
-    if (res?.error) {
-      toast.error(res.error);
-    } else {
-      toast.success("Login successful!");
-      router.push("/"); 
+    try {
+      const res = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+        callbackUrl: "/",
+      });
+      if (res?.ok) {
+        router.push("/");
+        toast.success("Login Successfully!");
+      } else {
+        console.log("Login failed", res?.error);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -40,7 +44,9 @@ export default function LoginForm() {
             className="input input-bordered w-full"
             {...register("email", { required: "Email is required" })}
           />
-          {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
         </label>
 
         <label className="form-control w-full">

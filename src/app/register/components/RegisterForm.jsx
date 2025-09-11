@@ -5,13 +5,30 @@ import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import SocialLogin from "@/app/login/components/SocialLogin";
 import { registerUser } from "@/app/actions/auth/registerUser";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const router = useRouter();
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
-    registerUser(data);
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      const res = await registerUser(data);
+      console.log(res);
+      if (res?.acknowledged == true) {
+        toast.success("Register Successfully!");
+        router.push("/");
+      } else {
+        toast.error("Registration failed");
+      }
+    } catch (err) {
+      toast.error("Something went wrong!");
+      console.log(err);
+    }
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -23,9 +40,10 @@ export default function RegisterForm() {
         </div>
         <input
           type="text"
-          placeholder="Type here"
+          placeholder="Enter your Name"
           className="input input-bordered w-full"
           {...register("name")}
+          required
         />
       </label>
       <label className="form-control w-full">
@@ -37,6 +55,7 @@ export default function RegisterForm() {
           type="text"
           placeholder="Type here"
           className="input input-bordered w-full"
+          required
         />
       </label>
       <label className="form-control w-full">
@@ -48,6 +67,7 @@ export default function RegisterForm() {
           type="password"
           placeholder="Type here"
           className="input input-bordered w-full"
+          required
         />
       </label>
       <button className="w-full h-12 bg-orange-500 text-white font-bold">
