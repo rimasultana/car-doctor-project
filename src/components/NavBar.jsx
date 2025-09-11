@@ -1,8 +1,18 @@
+"use client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import toast from "react-hot-toast";
 
 export default function NavBar() {
+  const { data: session, status } = useSession();
+  const handleLogOut = async () => {
+    const res = await signOut();
+    if (res) {
+      toast.success("LogOut Successfully!");
+    }
+  };
   const navMenu = () => {
     return (
       <>
@@ -18,7 +28,7 @@ export default function NavBar() {
         <li>
           <Link href={"/blog"}>Blog</Link>
         </li>
-        <li> 
+        <li>
           <Link href={"/contact"}>Contact</Link>
         </li>
       </>
@@ -68,12 +78,26 @@ export default function NavBar() {
           <ul className="menu menu-horizontal px-1">{navMenu()}</ul>
         </div>
         <div className="navbar-end list-none space-x-4 text-[#FF3811]">
-          <li className="border-b-2 border-[#FF3811] rounded-xl p-2">
-            <Link href={"/register"}>Register</Link>
-          </li>
-          <li className="border-b-2 border-[#FF3811] rounded-xl p-2">
-            <Link href={"/login"}>Login</Link>
-          </li>
+          {status == "authenticated" ? (
+            <>
+              <li
+                onClick={handleLogOut}
+                className="border-b-2 border-[#FF3811] rounded-xl p-2 hover:border-green-700 hover:text-green-700"
+              >
+                LogOut
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="border-b-2 border-[#FF3811] rounded-xl p-2">
+                <Link href={"/register"}>Register</Link>
+              </li>
+              <li className="border-b-2 border-[#FF3811] rounded-xl p-2">
+                <Link href={"/login"}>Login</Link>
+              </li>
+            </>
+          )}
+
           <a className="btn border-2 border-[#FF3811]">Appointment</a>
         </div>
       </div>

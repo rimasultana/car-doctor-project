@@ -73,14 +73,12 @@ export default function RegisterForm() {
       <button className="w-full h-12 bg-orange-500 text-white font-bold">
         Sign Up
       </button>
+
+      <div className="text-red-500 flex justify-center items-center border-2 border-red-600 py-3">
+        <Link href={"/login"}> Don't Have an account? </Link>
+      </div>
       <p className="text-center">Or Sign In with</p>
       <SocialLogin />
-      <p className="text-center">
-        Don't Have an account?{" "}
-        <Link href="/login" className="text-orange-500 font-bold">
-          Login
-        </Link>
-      </p>
     </form>
   );
 }

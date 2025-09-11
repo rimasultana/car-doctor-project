@@ -5,6 +5,8 @@ import { signIn } from "next-auth/react";
 import SocialLogin from "./SocialLogin";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import RegisterPage from "@/app/register/page";
+import Link from "next/link";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -66,6 +68,9 @@ export default function LoginForm() {
           Login
         </button>
       </form>
+      <div className="text-red-500 flex justify-center items-center border-2 border-red-600 py-3">
+        <Link href={"/register"}>Create new account</Link>
+      </div>
 
       <div className="divider">Or continue with</div>
       <SocialLogin />
