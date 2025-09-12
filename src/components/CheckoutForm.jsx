@@ -31,10 +31,12 @@ const CheckoutForm = ({ data }) => {
 
     const res = await fetch("http://localhost:3000/api/service", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bookingPayload),
     });
-    const postedRes = await res.json();
-    console.log(postedRes, "POsted Data");
+    const text = await res.text();
+    const postedRes = text ? JSON.parse(text) : {};
+
   };
 
   return (

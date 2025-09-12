@@ -38,13 +38,15 @@ export default async function ServicesDetailsPage({ params }) {
       <section className="flex flex-col md:flex-row gap-8 md:gap-16 my-10 px-4 md:px-20">
         <div className="flex-shrink-0 md:w-4/6">
           {" "}
-          <Image
-            src={data.img}
-            width={300}
-            height={100}
-            alt={data.title}
-            className="w-full h-auto rounded-lg shadow-lg object-cover"
-          />
+          {data.img && (
+            <Image
+              src={data.img}
+              width={300}
+              height={100}
+              alt={data.title || "Image"}
+              className="w-full h-auto rounded-lg shadow-lg object-cover"
+            />
+          )}
           <h1 className="text-2xl  md:text-3xl font-bold mb-4 mt-4">
             {data.title}
           </h1>

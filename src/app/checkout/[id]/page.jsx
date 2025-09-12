@@ -11,7 +11,7 @@ export default async function CheckoutPage({ params }) {
   return (
     <div>
       <CheckoutForm data={data}/>
-      {JSON.stringify(data)}
+     
     </div>
   );
 }
