@@ -1,128 +1,147 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import React from "react";
-
-// import { useSession } from "next-auth/react";
-// import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 
 const CheckoutForm = ({ data }) => {
-//   const { data: session } = useSession();
-//   console.log(session);
+  const { data: session, status } = useSession();
 
-  const handleBookService = async (e) => {
-    // toast("Submitting Booking...");
-    // e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    // const form = e.target;
-    // const name = form.name.value;
-    // const date = form.date.value;
-    // const phone = form.phone.value;
-    // const address = form.address.value;
-    // const email = form.email.value;
-    // const bookingPayload = {
-    //   // Session
-    //   customerName: name,
-    //   email,
+  const onSubmit = async (formData) => {
+    const bookingPayload = {
+      customerName: session?.user?.name || "",
+      email: session?.user?.email || "",
 
-    //   // User Inputs
-    //   date,
-    //   phone,
-    //   address,
+      date: formData.date,
+      phone: formData.phone,
+      address: formData.address,
 
-    //   // Extra information
-    //   service_id: data._id,
-    //   service_name: data.title,
-    //   service_img: data.img,
-    //   service_price: data.price,
+      service_id: data?._id,
+      service_name: data?.title,
+      service_img: data?.img,
+      service_price: data?.price,
     };
+    console.log(bookingPayload);
 
-//     console.log(bookingPayload);
-//     const res = await fetch(
-//       "https://nextjs-car-doctor-kappa.vercel.app/api/service",
-//       {
-//         method: "POST",
-//         body: JSON.stringify(bookingPayload),
-//       }
-//     );
-//     const postedResponse = await res.json();
-//     console.log("POSTED DATA", postedResponse);
-//   };
+    const res = await fetch("http://localhost:3000/api/service", {
+      method: "POST",
+      body: JSON.stringify(bookingPayload),
+    });
+    const postedRes = await res.json();
+    console.log(postedRes, "POsted Data");
+  };
 
   return (
     <div className="my-10">
       <div className="w-11/12 mx-auto">
         <h2 className="text-center text-3xl mb-4">
-          Book Service 
+          Book Service: {data?.title}
         </h2>
-        <form >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Name */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
               </label>
               <input
-                // defaultValue={session?.user?.name}
-                readOnly
                 type="text"
-                name="name"
+                readOnly
+                defaultValue={session?.user?.name}
+                {...register("name")}
                 className="input input-bordered"
               />
             </div>
 
+            {/* Email */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
-                // defaultValue={session?.user?.email}
+                type="email"
                 readOnly
-                type="text"
-                name="email"
-                placeholder="email"
+                defaultValue={session?.user?.email || ""}
+                {...register("email")}
                 className="input input-bordered"
               />
             </div>
+
+            {/* Price */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Due amount</span>
               </label>
               <input
                 type="text"
-                // defaultValue={data?.price}
                 readOnly
-                name="price"
+                defaultValue={data?.price || ""}
+                {...register("price")}
                 className="input input-bordered"
               />
             </div>
+
+            {/* Date */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Date</span>
               </label>
-              <input type="date" name="date" className="input input-bordered" />
+              <input
+                type="date"
+                {...register("date", { required: "Date is required" })}
+                className="input input-bordered"
+              />
+              {errors.date && (
+                <span className="text-red-500 text-sm">
+                  {errors.date.message}
+                </span>
+              )}
             </div>
+
+            {/* Phone */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Phone</span>
               </label>
               <input
                 type="text"
-                name="phone"
                 placeholder="Your Phone"
+                {...register("phone", { required: "Phone is required" })}
                 className="input input-bordered"
               />
+              {errors.phone && (
+                <span className="text-red-500 text-sm">
+                  {errors.phone.message}
+                </span>
+              )}
             </div>
+
+            {/* Address */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Present Address</span>
               </label>
               <input
                 type="text"
-                name="address"
                 placeholder="Your Address"
+                {...register("address", { required: "Address is required" })}
                 className="input input-bordered"
               />
+              {errors.address && (
+                <span className="text-red-500 text-sm">
+                  {errors.address.message}
+                </span>
+              )}
             </div>
           </div>
+
+          {/* Submit */}
           <div className="form-control mt-6">
             <input
               className="btn btn-primary btn-block"

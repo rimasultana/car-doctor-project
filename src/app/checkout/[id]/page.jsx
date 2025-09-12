@@ -10,7 +10,8 @@ export default async function CheckoutPage({ params }) {
 
   return (
     <div>
-      <CheckoutForm />
+      <CheckoutForm data={data}/>
+      {JSON.stringify(data)}
     </div>
   );
 }
