@@ -1,10 +1,9 @@
-// import DeleteBookingButton from "@/app/my-bookings/components/DeleteBookingButton";
+import DeleteBookingButton from "@/app/my-bookings/components/DeleteBookingButton";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegEdit } from "react-icons/fa";
 
 const MyAllBookings = ({ data }) => {
-  console.log(data);
   return (
     <div className="my-8">
       <h1 className="text-center font-bold text-3xl my-4">My All Bookings</h1>
@@ -23,8 +22,8 @@ const MyAllBookings = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(data) && data.length > 0 ? (
-              data.map((item) => (
+            {data?.map((item) => {
+              return (
                 <tr key={item._id} className="border">
                   <td>
                     <Image
@@ -44,16 +43,13 @@ const MyAllBookings = ({ data }) => {
                       <FaRegEdit className="h-8 w-8 font-bold" />
                     </Link>
                   </td>
-                  <td>delete</td>
+
+                  <td>
+                    <DeleteBookingButton id={item._id} />
+                  </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={8} className="text-center">
-                  No bookings found.
-                </td>
-              </tr>
-            )}
+              );
+            })}
           </tbody>
         </table>
       </div>

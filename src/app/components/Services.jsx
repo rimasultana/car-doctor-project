@@ -8,7 +8,6 @@ export default async function Services() {
     collectionNameObj.servicesCollection
   );
   const data = await serviceCollection.find({}).toArray();
-  console.log(data);
   return (
     <div className="w-11/12 mx-auto py-8">
       <h2 className="text-2xl font-bold mb-6 text-center">Our Services</h2>

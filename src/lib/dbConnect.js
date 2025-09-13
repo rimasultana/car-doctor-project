@@ -1,11 +1,9 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
-
 export const collectionNameObj = {
-  servicesCollection: "test_services",
-  userCollection: "test_user",
-  bookingCollection: "test_booking",
+  servicesCollection: "services",
+  userCollection: "user",
+  bookingCollection: "booking",
 };
-
 export default async function dbConnect(collectionName) {
   const uri = process.env.MONGODB_URL;
   const client = new MongoClient(uri, {
@@ -15,7 +13,6 @@ export default async function dbConnect(collectionName) {
       deprecationErrors: true,
     },
   });
-
   await client.connect();
   const db = client.db(process.env.DB_NAME);
   return db.collection(collectionName);

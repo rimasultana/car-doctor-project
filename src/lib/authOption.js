@@ -41,10 +41,32 @@ export const authOptions = {
   },
 
   callbacks: {
-    async signIn({ user, account }) {
-      if (!account) return true; 
+    async jwt({ token, user }) {
+      if (user) {
+        token.email = user.email || token.email;
+        token.name = user.name || token.name;
+        token.picture = user.image || token.picture;
+      }
+      return token;
+    },
 
-      const { providerAccountId, provider } = account; 
+    async session({ session, token }) {
+      if (token?.email) {
+        session.user.email = token.email;
+      }
+      if (token?.name) {
+        session.user.name = token.name;
+      }
+      if (token?.picture) {
+        session.user.image = token.picture;
+      }
+      return session;
+    },
+
+    async signIn({ user, account }) {
+      if (!account) return true;
+
+      const { providerAccountId, provider } = account;
       const { email: user_email, image, name } = user;
 
       try {
@@ -73,4 +95,6 @@ export const authOptions = {
       }
     },
   },
+
+  secret: process.env.NEXTAUTH_SECRET, 
 };

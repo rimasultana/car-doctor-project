@@ -1,11 +1,14 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const CheckoutForm = ({ data }) => {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   const {
     register,
@@ -27,16 +30,18 @@ const CheckoutForm = ({ data }) => {
       service_img: data?.img,
       service_price: data?.price,
     };
-    console.log(bookingPayload);
 
     const res = await fetch("http://localhost:3000/api/service", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bookingPayload),
     });
-    const text = await res.text();
-    const postedRes = text ? JSON.parse(text) : {};
-
+    if (res?.status == 200) {
+      toast.success("Successfully your order confirm!");
+    } else {
+      toast.error("Failed Your Order!");
+    }
+    router.push("/my-bookings");
   };
 
   return (

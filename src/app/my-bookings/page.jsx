@@ -19,7 +19,6 @@ export default function MyBookingsPage() {
         }
 
         const d = await res.json();
-        console.log(d);
         setData(d);
       } catch (error) {
         console.error("Error fetching bookings:", error);
