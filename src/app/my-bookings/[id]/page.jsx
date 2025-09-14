@@ -5,14 +5,18 @@ import React from "react";
 export default async function UpdateBookingsPage({ params }) {
   const { id } = params;
 
-  const res = await fetch(`http://localhost:3000/api/my-bookings/${id}`, {
+  const res = await fetch(`process.env.NEXT_AUTH_URL/api/my-bookings/${id}`, {
     headers: Object.fromEntries(headers()),
     cache: "no-store",
   });
 
   if (!res.ok) {
     console.error("Fetch error:", res.status, res.statusText);
-    return <div>Error: {res.status} {res.statusText}</div>;
+    return (
+      <div>
+        Error: {res.status} {res.statusText}
+      </div>
+    );
   }
 
   let data;

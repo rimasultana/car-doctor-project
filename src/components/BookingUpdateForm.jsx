@@ -39,7 +39,7 @@ export const BookingUpdateForm = ({ data }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/my-bookings/${data._id}`,
+        `process.env.NEXT_AUTH_URL/api/my-bookings/${data._id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

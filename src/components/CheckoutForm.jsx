@@ -31,7 +31,7 @@ const CheckoutForm = ({ data }) => {
       service_price: data?.price,
     };
 
-    const res = await fetch("http://localhost:3000/api/service", {
+    const res = await fetch("process.env.NEXT_AUTH_URL/api/service", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bookingPayload),

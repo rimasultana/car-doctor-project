@@ -5,7 +5,7 @@ export const collectionNameObj = {
   bookingCollection: "booking",
 };
 export default async function dbConnect(collectionName) {
-  const uri = process.env.MONGODB_URL;
+  const uri = process.env.NEXT_PUBLIC_MONGODB_URL;
   const client = new MongoClient(uri, {
     serverApi: {
       version: ServerApiVersion.v1,
