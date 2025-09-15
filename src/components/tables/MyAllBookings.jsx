@@ -11,7 +11,7 @@ const MyAllBookings = ({ data }) => {
         <table className="w-full table table-zebra">
           <thead className="border">
             <tr>
-              <th>Service Image</th>
+              <th>Service Image Show</th>
               <th>Service Name</th>
               <th>Service Date</th>
               <th>Service Price</th>
